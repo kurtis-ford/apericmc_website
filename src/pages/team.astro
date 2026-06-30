@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { media } from '../media.js';
+
+// Bios as provided. Titles: Jake CTO, Kurtis CEO, Megan Senior Advisor.
+// Photos are the real headshots from apericmc.com, stored in public/team/.
+const team = [
+  {
+    name: 'Jake Koester',
+    title: 'CTO',
+    photo: '/team/jake.png',
+    bio: [
+      "Dr. Jake Koester has over seventeen years of experience in running, researching, and developing computational mechanics codes. He spent over ten years at Sandia National Laboratories, where he began as an analyst specializing in transient-dynamic structural analysis. Jake's dedication to improving the design-to-analysis workflow grew from his painstaking work meshing complex parts. He earned a Ph.D. in Structural Engineering from the University of California, San Diego, where he developed mesh-free methods for enabling accelerated simulation development. Jake furthered his research as the principal investigator for the Conforming Reproducing Kernel Method (CRK). Prior to Sandia, he contributed to thermomechanical finite element analysis of laser-heated structures at Ball Aerospace for the Air Force Research Laboratory. Following his time at Sandia, Jake continued his research at PTC and Coreform, focusing on immersed and isogeometric simulation techniques.",
+    ],
+  },
+  {
+    name: 'Kurtis Ford',
+    title: 'CEO',
+    photo: '/team/kurtis.jpg',
+    bio: [
+      'Kurtis Ford combines deep technical expertise in computational mechanics with a strong entrepreneurial instinct developed early in a family business. He holds B.S. and M.S. degrees in Mechanical Engineering from the University of Utah and has spent his career solving some of the most demanding problems in multi-physics simulation and design.',
+      'Kurtis has directed analysis teams modeling the behavior of complex materials, including welds, additive manufacturing, ceramics, epoxy, and inorganic glass. He pioneered advanced modeling techniques for compact particle accelerators, streamlining automated digital design processes, and played a central role in the structural analysis of critical nuclear weapon components. He has also led crash analysis and developed a Digital Twin for a secure transportation group. His early experience as a mechanical draftsman gave him a firsthand understanding of the design-to-analysis workflow that Aperi CMC exists to transform.',
+      'Alongside his engineering career, Kurtis has produced and marketed online content and built a sizable, engaged audience from the ground up. He is bilingual in English and Spanish.',
+    ],
+  },
+  {
+    name: 'Megan Ford',
+    title: 'Senior Advisor',
+    photo: '/team/megan.jpg',
+    bio: [
+      'Megan is an entrepreneur with expertise in business management, accounting, education, counseling, and psychology. She graduated at the top of her class from Brigham Young University at the remarkable age of 19, and has since led teams and organizations in the community while building a number of small business ventures. As the original founder of Aperi CMC, she brings the business acumen, organizational discipline, and vision that established the company, and her meticulous attention to detail, ambition, and passion continue to empower its team of engineers.',
+    ],
+  },
+];
+---
+
+<Base
+  title="Team"
+  description="The team behind Aperi CMC."
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Team</p>
+      <h1>The people behind Aperi&nbsp;CMC.</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="team-grid">
+        {team.map((member) => (
+          <article class="member">
+            {member.photo && (
+              <img
+                class="member__photo"
+                src={media(member.photo)}
+                alt={`Photograph of ${member.name}`}
+                width="160"
+                height="160"
+                loading="lazy"
+              />
+            )}
+            <h3>{member.name}</h3>
+            <p class="member__title">{member.title}</p>
+            <div class="member__bio">
+              {member.bio.map((para) => <p>{para}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

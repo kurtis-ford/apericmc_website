@@ -1,0 +1,158 @@
+---
+import Base from '../layouts/Base.astro';
+import { media } from '../media.js';
+
+// References preserved from the prior site (titles and source links only;
+// the source did not list authors/year/journal, so none are invented here).
+const references = [
+  {
+    title: 'An agile design-to-simulation workflow using a new conforming moving least squares method',
+    url: 'https://www.osti.gov/biblio/1569655/',
+  },
+  {
+    title: 'Conforming window functions for meshfree methods',
+    url: 'https://www.osti.gov/pages/biblio/1492348',
+  },
+  {
+    title: 'Treatment of near-incompressibility in meshfree and immersed-particle methods',
+    url: 'https://link.springer.com/article/10.1007/s40571-019-00238-z',
+  },
+];
+---
+
+<Base
+  title="Aperi-Mech"
+  description="Aperi-Mech is a solid mechanics solver built on the Conforming Reproducing Kernel method and designed to be driven by AI agents."
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Solver</p>
+      <h1>Aperi-Mech</h1>
+      <p class="hero__lede">
+        Aperi-Mech is our flagship solver, designed to run efficiently with an AI
+        agent. It includes an internal mesher designed for AI, so an agent can
+        generate meshes efficiently without wasting tokens.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap overview">
+      <div class="overview__head">
+        <p class="eyebrow">Capabilities</p>
+        <h2>What it does</h2>
+      </div>
+      <ul class="points">
+        <li>
+          Supports unstructured meshes. Generate analysis-ready meshes from
+          imperfect geometry or raw scans without manual cleanup.
+        </li>
+        <li>
+          Explicit transient dynamics, implicit dynamics, and statics. All done
+          with matrix-free solvers, no global assembly required.
+        </li>
+        <li>
+          Performance portable: single codebase runs natively on CPUs and GPUs
+          with no vendor lock-in.
+        </li>
+        <li>
+          Meshfree and finite element methods in a single framework.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap overview">
+      <div class="overview__head">
+        <p class="eyebrow">Method</p>
+        <h2>Conforming Reproducing Kernel</h2>
+      </div>
+      <div class="prose">
+        <p>
+          The Conforming Reproducing Kernel Method (CRK) is the result of extensive
+          research focusing on the application of mesh-free methods to expedite
+          simulation development. In most simulation processes, a significant
+          bottleneck lies in the effort required to generate a suitable
+          discretization, known as &ldquo;meshing,&rdquo; from the given geometry.
+          This task is particularly critical for dynamic structural analyses, as
+          computational costs are directly linked to mesh quality.
+        </p>
+        <p>
+          CRK offers an effective solution for simulating scenarios involving
+          complex geometries, low-quality meshes, and nearly incompressible
+          materials, all without increasing the computational cost to obtain
+          accurate solutions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap overview">
+      <div class="overview__head">
+        <p class="eyebrow">Examples</p>
+        <h2>Worked examples</h2>
+      </div>
+      <div class="overview__body">
+        <figure class="example">
+          <video
+            class="example__video"
+            poster={media('/front_out_poster.jpg')}
+            playsinline
+            controls
+            preload="metadata"
+            aria-label="Landslide simulation animation"
+          >
+            <source src={media('/front_out.mp4')} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <figcaption class="example__caption">
+            This landslide simulation uses real terrain data from a lidar scan.
+            No manual geometry cleanup was involved. The
+            simulation uses explicit dynamics with a Drucker-Prager material model
+            for the muddy soil in the middle of the hill. The topographic dataset
+            came from the Geometrics Lab at Oregon State University, using a ground
+            filter developed by EZDataMD to strip out vegetation, structures, and
+            other noise.
+          </figcaption>
+        </figure>
+
+        <figure class="example example--spaced">
+          <img
+            class="example__img"
+            src={media('/lunar_landslide.png')}
+            alt="Time series of a simulated landslide on the slope of the Moon's Tycho crater, at initial time, 80, 120, and 160 seconds"
+            width="1224"
+            height="476"
+            loading="lazy"
+          />
+          <figcaption class="example__caption">
+            A simulation of a landslide on the Tycho crater, performed with
+            Aperi-Mech on an STL pulled from
+            <a href="https://science.nasa.gov/3d-resources/moon-tycho/" target="_blank" rel="noopener noreferrer">NASA's 3D resources</a>.
+            Performance testing was done on an NVIDIA H100 GPU and AMD EPYC 7V12
+            processors. For reference, on this problem a single H100 GPU ran the
+            simulation about as fast as 32 CPU cores.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap overview">
+      <div class="overview__head">
+        <p class="eyebrow">References</p>
+        <h2>Published work</h2>
+      </div>
+      <ol class="reflist">
+        {references.map((ref) => (
+          <li>
+            <a href={ref.url} target="_blank" rel="noopener noreferrer">{ref.title}</a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Base>

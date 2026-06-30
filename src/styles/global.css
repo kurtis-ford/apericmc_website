@@ -1,0 +1,397 @@
+/* =========================================================================
+   Aperi CMC global styles
+   Typography-led, minimal. Two type families (system sans + monospace),
+   restrained palette. No imagery, no decorative elements.
+   ========================================================================= */
+
+:root {
+  /* Palette: ink, paper, two grays, one accent. */
+  --ink:        #17191c;   /* primary text */
+  --gray-700:   #3d4248;   /* strong secondary text */
+  --gray-500:   #6b7280;   /* muted secondary text */
+  --gray-300:   #d6d9dd;   /* hairlines, borders */
+  --gray-100:   #f4f5f6;   /* subtle fills */
+  --paper:      #ffffff;   /* background */
+  --tint:       #eef3f8;   /* pale blue: hero/footer wash */
+  --accent:     #1c4e6b;   /* deep blue: links, rules */
+  --accent-ink: #16405a;   /* accent on hover */
+
+  /* Two type families only. */
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+  --mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas,
+          "Liberation Mono", monospace;
+
+  /* Rhythm */
+  --measure: 64ch;        /* readable line length */
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+}
+
+/* ---- reset ----------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.003em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+p { margin: 0; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+}
+a:hover { color: var(--accent-ink); text-decoration: underline; }
+
+/* ---- layout primitives ---------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: 70rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.5rem 0.875rem;
+  z-index: 100;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ---- site header / nav ---------------------------------------------- */
+.site-header {
+  border-top: 3px solid #1e50a2; /* logo blue, slightly brighter than --accent */
+  border-bottom: 1px solid var(--gray-300);
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: saturate(1.4) blur(8px);
+  z-index: 50;
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-block: 0.95rem;
+}
+.brand {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+}
+.brand:hover { text-decoration: none; }
+.brand__logo {
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex: none;
+}
+.brand__text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1.1;
+}
+.brand__name {
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.brand .brand__mark { color: var(--accent); }
+
+.nav {
+  display: flex;
+  gap: 1.75rem;
+  font-size: 0.95rem;
+}
+.nav a {
+  color: var(--gray-700);
+  font-weight: 500;
+  padding-block: 0.15rem;
+  border-bottom: 2px solid transparent;
+}
+.nav a:hover { color: var(--ink); text-decoration: none; }
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* ---- generic eyebrow label (mono) ----------------------------------- */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.9rem;
+}
+
+/* ---- hero ------------------------------------------------------------ */
+.hero {
+  padding-block: clamp(3.5rem, 9vw, 6.5rem) clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid var(--gray-300);
+  background: linear-gradient(180deg, var(--tint), var(--paper));
+}
+.hero h1 {
+  font-size: clamp(2rem, 5.2vw, 3.25rem);
+  max-width: 18ch;
+}
+.hero__lede {
+  margin-top: 1.5rem;
+  max-width: var(--measure);
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--gray-700);
+}
+
+/* two-column hero: text + example render */
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.hero__figure { margin: 0; }
+.hero__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* The PNG has a partial white background; multiply blends it into the
+     hero tint so the foam reads as sitting on the backdrop, not a white box. */
+  mix-blend-mode: multiply;
+}
+.hero__figure figcaption {
+  margin-top: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  color: var(--gray-500);
+}
+@media (max-width: 52rem) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__figure { max-width: 30rem; }
+}
+
+/* ---- content sections ----------------------------------------------- */
+.section {
+  padding-block: clamp(3rem, 7vw, 5rem);
+  border-bottom: 1px solid var(--gray-300);
+}
+.section:last-of-type { border-bottom: 0; }
+
+.section__head { max-width: var(--measure); }
+.section__head h2 {
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+}
+.section__head p {
+  margin-top: 1rem;
+  color: var(--gray-700);
+}
+
+/* capability list: text-led, no icons */
+.capabilities {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: clamp(1.75rem, 3vw, 2.75rem) clamp(2rem, 4vw, 3.5rem);
+}
+.capability {
+  border-top: 1px solid var(--gray-300);
+  padding-top: 1.1rem;
+}
+.capability__label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 0.65rem;
+}
+.capability h3 {
+  font-size: 1.18rem;
+  letter-spacing: -0.01em;
+}
+.capability p {
+  margin-top: 0.6rem;
+  color: var(--gray-700);
+  font-size: 0.98rem;
+}
+
+/* plain prose block */
+.prose { max-width: var(--measure); }
+.prose p + p { margin-top: 1.1rem; }
+.prose p { color: var(--gray-700); }
+
+/* two-column overview: left heading, right content */
+.overview {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.overview__head h2 {
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+}
+.overview__head .eyebrow { margin-bottom: 0.6rem; }
+.overview__lead {
+  max-width: var(--measure);
+  margin-bottom: 1.4rem;
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+.overview__more { margin-top: 1.4rem; font-size: 0.95rem; }
+
+/* ledger-style point list */
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: var(--measure);
+}
+.points li {
+  border-top: 1px solid var(--gray-300);
+  padding: 1rem 0;
+  color: var(--gray-700);
+}
+.points li:first-child { border-top: 0; padding-top: 0; }
+
+/* worked-example video/image + caption */
+.example { margin: 0; }
+.example--spaced { margin-top: clamp(2rem, 4vw, 3rem); }
+.example__video,
+.example__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  background: var(--gray-100);
+}
+.example__caption {
+  margin-top: 1rem;
+  color: var(--gray-500);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  max-width: var(--measure);
+}
+
+/* numbered reference list */
+.reflist {
+  margin: 0;
+  padding-left: 1.4rem;
+  max-width: var(--measure);
+  font-size: 0.97rem;
+}
+.reflist li {
+  padding: 0.5rem 0;
+  color: var(--gray-700);
+}
+.reflist li::marker { color: var(--gray-500); font-family: var(--mono); font-size: 0.85em; }
+
+@media (max-width: 46rem) {
+  .overview { grid-template-columns: 1fr; gap: 1.1rem; }
+}
+
+/* ---- team ------------------------------------------------------------ */
+.team-grid {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 40rem) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+.member {
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  padding: 1.5rem 1.5rem 1.75rem;
+  background: var(--paper);
+}
+.member__photo {
+  display: block;
+  width: 160px;
+  height: 160px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 6px;
+  background: var(--gray-100);
+  margin-bottom: 1.1rem;
+}
+.member h3 {
+  font-size: 1.22rem;
+}
+.member__title {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 0.4rem;
+}
+.member__bio {
+  margin-top: 1rem;
+  color: var(--gray-700);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+.member__bio p + p { margin-top: 0.8rem; }
+
+/* ---- footer ---------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--gray-300);
+  padding-block: 2.5rem 3rem;
+  margin-top: 2rem;
+  background: var(--tint);
+  color: var(--gray-500);
+  font-size: 0.9rem;
+}
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.site-footer a { color: var(--gray-700); font-weight: 500; }
+
+/* ---- focus visibility ------------------------------------------------ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (max-width: 30rem) {
+  body { font-size: 17px; }
+  .site-header__inner { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+}

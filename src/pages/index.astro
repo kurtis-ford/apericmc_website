@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import { media } from '../media.js';
+
+const base = import.meta.env.BASE_URL;
+const withBase = (p) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+---
+
+<Base
+  title="What We Do"
+  description="Aperi CMC provides software that accelerates solid mechanics simulations, with the Aperi-Mech solver and an AI-guided workflow."
+>
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Computational Mechanics Software</p>
+        <h1>Set up engineering simulations at the speed of&nbsp;a&nbsp;conversation.</h1>
+        <p class="hero__lede">
+          Aperi-Mech is a solid mechanics solver designed for AI. It uses advanced
+          algorithms to automate meshing, so AI can build finite element
+          simulations quickly and efficiently, without burning tokens or chasing
+          dead ends. It runs natively on CPUs and GPUs for maximum efficiency and
+          flexibility.
+        </p>
+      </div>
+      <figure class="hero__figure">
+        <img
+          src={media('/displacement_on_scanned_foam.png')}
+          alt="Computed displacement field on a scanned foam sample, colored from low to high displacement"
+          width="1050"
+          height="848"
+          loading="eager"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap overview">
+      <div class="overview__head">
+        <p class="eyebrow">Solver</p>
+        <h2>Aperi-Mech</h2>
+      </div>
+      <div class="overview__body">
+        <p class="overview__lead">
+          Aperi-Mech is our flagship solver, designed to run efficiently with an
+          AI agent.
+        </p>
+        <ul class="points">
+          <li>
+            Supports unstructured meshes. Generate analysis-ready meshes from
+            imperfect geometry or raw scans without manual cleanup.
+          </li>
+          <li>
+            Explicit transient dynamics, implicit dynamics, and statics. All done
+            with matrix-free solvers, no global assembly required.
+          </li>
+          <li>
+            Performance portable: single codebase runs natively on CPUs and GPUs
+            with no vendor lock-in.
+          </li>
+          <li>
+            Meshfree and finite element methods in a single framework.
+          </li>
+        </ul>
+        <p class="overview__more">
+          <a href={withBase('/aperi-mech')}>Read about Aperi-Mech and the Conforming Reproducing Kernel method →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap overview">
+      <div class="overview__head">
+        <p class="eyebrow">Workflow</p>
+        <h2>AI-Guided Workflow</h2>
+      </div>
+      <ul class="points">
+        <li>
+          An AI agent walks you through problem setup, validates modeling
+          decisions, and performs tedious tasks such as input deck generation.
+        </li>
+        <li>
+          Every decision documented, with full traceability for improved peer
+          review.
+        </li>
+        <li>
+          We can set up the AI-assisted workflow to run any solid mechanics code
+          on the market, including open-source and government-use codes, so you
+          can easily compare methods and codes.
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>

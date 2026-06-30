@@ -1,0 +1,24 @@
+# build output
+dist/
+# dependencies
+node_modules/
+# generated types
+.astro/
+
+# macOS
+.DS_Store
+
+# environment
+.env
+.env.production
+
+# media — hosted on Cloudflare R2, never committed to git
+/media/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.mov
+*.webm
+# (logo.svg and other .svg files stay in git — small, structural)

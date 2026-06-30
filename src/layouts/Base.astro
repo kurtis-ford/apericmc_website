@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} | Aperi CMC` : 'Aperi CMC';
+
+// BASE_URL always ends in a trailing slash ("/" at root, "/apericmc_website/" on github.io).
+// withBase() turns an absolute path like "/team" into a path that works wherever the site is hosted.
+const base = import.meta.env.BASE_URL;
+const withBase = (p) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+const norm = (p) => p.replace(/\/+$/, '') || '/';
+
+const pathname = norm(Astro.url.pathname);
+
+const navItems = [
+  { href: withBase('/'), label: 'What We Do' },
+  { href: withBase('/aperi-mech'), label: 'Aperi-Mech' },
+  { href: withBase('/team'), label: 'Team' },
+];
+
+const contactEmail = 'info@apericmc.com';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href={withBase('/logo.svg')} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <a class="brand" href={withBase('/')}>
+          <img class="brand__logo" src={withBase('/logo.svg')} alt="" width="40" height="40" aria-hidden="true" />
+          <span class="brand__text">
+            <span class="brand__name">Aperi&nbsp;<span class="brand__mark">CMC</span></span>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              aria-current={pathname === norm(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap site-footer__inner">
+        <span>© {new Date().getFullYear()} Aperi CMC</span>
+        <span>
+          Contact: <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
